@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+{% import "macros/alerts.html.twig" as utils %}
+
+{% block body %}
+	<h1>Meet My Cat 😼</h1>
+	<p>{{ "Dans ma classe, j'ai " ~ 
+			 students|length ~
+			" étudiants."}}</p>
+
+	<p>Aujourd'hui, nous sommes le
+		{{today|date("d/m/Y")}}.</p>
+	{% if is_connected %}
+		<h2>Bienvenue
+			{{ first_name }}
+			{{ last_name }}
+			!</h2>
+	{% else %}
+		<h2>
+			<a href={{ path("login") }}>
+				Veuillez vous connecter.</a>
+		</h2>
+	{% endif %}
+
+	<p>
+		Mon chat coûte
+		{{25.4567|price(2)}}
+	</p>
+	{{ lorem() }}
+
+	{{utils.alert("Message de succès", "success") }}
+	{{utils.alert("Message d'avertissement", "warning") }}
+	{{utils.alert("Message d'erreur", "danger") }}
+	{{utils.alert("Message principal", "primary") }}
+	
+
+{% endblock %}
