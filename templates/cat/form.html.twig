@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<h1>Créer un chat</h1>
+	{{ form_start(form) }}
+	{{ form_row(form.name) }}
+	{{ form_row(form.age) }}
+	{{ form_row(form.color) }}
+	{{ form_row(form.breed) }}
+	{{ form_row(form.image) }}
+	{{ form_row(form.birthDate) }}
+	<input type="submit" class="btn btn-primary mt-3" value="Envoyer">
+	{{ form_end(form) }}
+{% endblock %}
