@@ -2,39 +2,40 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
 use DateTime;
 
+#[ORM\Entity]
 class Cat
 {
     // Propriétés
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private int $id;
 
-    #[Assert\NotBlank(message: "Le nom du chat doit être complété !")]
-    #[Assert\Length(
-        min: 3,
-        max: 15,
-        minMessage: "Le nom du chat doit faire plus de 3 caractères !",
-        maxMessage: "Le nom du chat doit faire moins de 15 caractères !"
-    )]
+    #[ORM\Column(length: 20)]
     private string $name;
 
-    #[Assert\NotBlank(message: "L'âge du chat doit être complété !")]
-    #[Assert\Range(
-        min: 0,
-        max: 20,
-        notInRangeMessage: 'Le chat doit avoir entre {{ min }} et {{ max }} ans.',
-    )]
+    #[ORM\Column]
     private int $age;
 
+    #[ORM\Column(length: 10)]
     private string $color;
 
+    #[ORM\Column(length: 20)]
     private string $breed;
 
+    #[ORM\Column(nullable: true)]
     private string $image;
 
+    #[ORM\Column]
     private DateTime $birthDate;
+
+    #[ORM\ManyToOne(targetEntity: Owner::class, inversedBy: 'cats')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Owner $owner = null;
 
     // Méthodes getters & setters
     public function getId()
@@ -111,6 +112,18 @@ class Cat
     public function setBirthDate(DateTime $birthDate): self
     {
         $this->birthDate = $birthDate;
+        return $this;
+    }
+
+    public function getOwner(): ?Owner
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?Owner $owner): static
+    {
+        $this->owner = $owner;
+
         return $this;
     }
 }
