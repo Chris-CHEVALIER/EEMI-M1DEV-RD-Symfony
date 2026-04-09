@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	{% if error %}
+		<div class="alert alert-danger">{{ error.messageKey }}</div>
+	{% endif %}
+
+	<form method="post" class="container">
+		<label for="email">E-mail</label>
+		<input type="email" name="_username" id="email" value="{{ email }}" class="form-control" required>
+		<label for="password">Mot de passe</label>
+		<input type="password" name="_password" id="password" class="form-control" required>
+		<input type="submit" value="Se connecter" class="btn btn-primary mt-2">
+	</form>
+{% endblock %}

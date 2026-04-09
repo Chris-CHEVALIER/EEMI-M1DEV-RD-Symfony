@@ -16,6 +16,7 @@ final class OwnerController extends AbstractController
     #[Route('/owner/create', name: 'create_owner')]
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
         $owner = new Owner();
         $form = $this->createForm(OwnerType::class, $owner);
 
@@ -36,6 +37,8 @@ final class OwnerController extends AbstractController
     #[Route('/owner/update/{id}', name: 'update_owner')]
     public function update(Request $request, ManagerRegistry $doctrine, Owner $owner): Response
     {
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
+
         $form = $this->createForm(OwnerType::class, $owner);
 
         $form->handleRequest($request);
@@ -54,6 +57,8 @@ final class OwnerController extends AbstractController
     #[Route('/owner/delete/{id}', name: 'delete_owner')]
     public function delete(ManagerRegistry $doctrine, Owner $owner): Response
     {
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
+
         $em = $doctrine->getManager();
         $em->remove($owner);
         $em->flush(); // Vide la boite dans la BDD

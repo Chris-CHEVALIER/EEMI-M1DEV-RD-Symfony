@@ -15,6 +15,7 @@ class CatController extends AbstractController
     #[Route("/cat/create", name: "create_cat")]
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
         $cat = new Cat();
         $form = $this->createForm(CatType::class, $cat);
 
